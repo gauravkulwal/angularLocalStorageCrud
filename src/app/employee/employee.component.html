@@ -1,0 +1,120 @@
+<div class="container-fluid mt-2 mx-2">
+    <div class="row">
+      <div class="col-6 text-white ">
+        <h5 class="mb-0 pb-0 ">EmployeeData</h5> <small class="mt-0 pt-0">(AngularLocalStorageCrud)</small>
+      </div>
+      <div class="col-6 text-white text-end">
+    <button class="btn btn-primary me-2" (click)="modalOpen()">Add Employee</button>
+      </div>
+    </div>
+    </div>
+<div class="row">
+    <div class="col-4 mx-auto">
+       <h5 class="text-center mb-0 pb-0 text-white">Employee Details</h5> 
+       <hr>
+    </div>
+</div>
+<div class="container">
+
+<div class="row">
+ <div class="col-4" *ngFor="let emp of EmployeeList">
+  <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+    <div class="card-header"> <h5 class="mb-0 pb-0">{{emp.fullName |  genderPipe: emp.gender}}</h5>
+    <small class="">{{emp.department}}</small>
+    </div>
+    <div class="card-body">
+    <h6 class="">City: {{emp.city}}</h6>
+    <h6 class="">Email: {{emp.city}}</h6>
+    <h6 class="">Mobile: {{emp.mobile}}</h6>
+   <div class="text-end">
+    <button class="btn btn-outline-success text-white" (click)="onEdit(emp)">Edit</button>
+    <button class="btn btn-outline-danger text-white" (click)="onDelete()" >Delete</button>
+   </div>
+    </div>
+    
+ </div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- Button trigger modal
+<button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Launch demo modal
+  </button> -->
+  
+  <!-- Modal -->
+  <div class="modal fade" #mymodal id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-center" id="exampleModalLabel">Employee Form</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body ">
+      <form action="">
+        <div class="form-group mt-2">
+            <label for="">FullName:</label>
+            <input [ngModelOptions]="{standalone: true}" type="text" class="form-control" [(ngModel)]="employeeObject.fullName">
+        </div>
+        <div class="form-group mt-2">
+            <label for="">Gender:</label>
+
+            <input type="radio" name="gender" id="" class="mx-3" [(ngModel)]="employeeObject.gender" value="Male">
+       <label for="">Male</label>
+
+       
+       <input type="radio" name="gender" id="" class="mx-2" [(ngModel)]="employeeObject.gender" value="Female">
+       <label for="">Female</label>
+        </div>
+        <div class="row mt-2">
+            <div class="col-6">
+                <div class="form-group ">
+                    <label for="">Email:</label>
+                    <input [ngModelOptions]="{standalone: true}" type="email" class="form-control" [(ngModel)]="employeeObject.email">
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="">Mobile:</label>
+                    <input [ngModelOptions]="{standalone: true}" type="text" class="form-control" [(ngModel)]="employeeObject.mobile">
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="">Depertment:</label>
+                    <select [ngModelOptions]="{standalone: true}" class="form-select " aria-label="Default select example" [(ngModel)]="employeeObject.department">
+                        <option selected value="">Select Department</option>
+                        <option *ngFor="let dept of departments" value="{{dept}}">{{dept}}</option>
+                    
+                      </select>
+                </div>
+
+            </div>
+            <div class="col-6">
+                <div class="form-group ">
+                    <label for="">City:</label>
+                    <input [ngModelOptions]="{standalone: true}" type="text" class="form-control" [(ngModel)]="employeeObject.city">
+                </div>
+            </div>
+        </div>
+
+      </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeModal()" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary"  *ngIf="employeeObject.id == 0" (click)="onSubmit()">Submit</button>
+          <button type="button" class="btn btn-primary" *ngIf="employeeObject.id != 0" (click)="onUpdate()">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
